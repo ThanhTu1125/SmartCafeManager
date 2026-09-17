@@ -1,0 +1,20 @@
+services:
+  backend:
+    image: maven:3.9-eclipse-temurin-21
+    container_name: smart-cafe-dev
+    working_dir: /app
+    volumes:
+      - .:/app
+      - maven-cache:/root/.m2
+    ports:
+      - "8080:8080"
+    command: mvn spring-boot:run
+    networks:
+      - smart_cafe_shared_net 
+
+networks:
+  smart_cafe_shared_net:
+    external: true
+
+volumes:
+  maven-cache:

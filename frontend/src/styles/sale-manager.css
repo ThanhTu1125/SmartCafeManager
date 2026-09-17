@@ -1,0 +1,1248 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ==========================================================================
+   Trang Màn hình bán hàng POS (Nhân viên & Admin)
+   ========================================================================== */
+
+.sale-manager {
+  --bg: #F6EEE1;
+  --tan-light: #E7C9A1;
+  --tan: #D5A874;
+  --tan-deep: #9C6B3A;
+  --ink: #2A1E14;
+  --ink-soft: #6E5C4A;
+  --card: #FFFDF9;
+  --line: #E4D2B8;
+  --line-light: #F0E5D4;
+  --footer-bg: #2E2117;
+  --footer-soft: #C9B29B;
+
+  /* Bàn Trống */
+  --s-empty-bg: #FFFFFF;
+  --s-empty-bd: #E2D7C7;
+  --s-empty-fg: #6E5C4A;
+  --s-empty-badge-bg: #F4EFE6;
+  --s-empty-badge-fg: #7A6956;
+
+  /* Bàn Đang phục vụ */
+  --s-serve-bg: #F2FAF5;
+  --s-serve-bd: #34D399;
+  --s-serve-fg: #065F46;
+  --s-serve-badge-bg: #D1FAE5;
+  --s-serve-badge-fg: #047857;
+
+  /* Bàn Gọi nhân viên */
+  --s-call-bg: #FEF2F2;
+  --s-call-bd: #F87171;
+  --s-call-fg: #991B1B;
+  --s-call-badge-bg: #FEE2E2;
+  --s-call-badge-fg: #B91C1C;
+
+  /* Bàn Đơn mới chờ duyệt */
+  --s-new-bg: #FFFBEB;
+  --s-new-bd: #FBBF24;
+  --s-new-fg: #92400E;
+  --s-new-badge-bg: #FEF3C7;
+  --s-new-badge-fg: #B45309;
+
+  /* Bàn Chờ tính tiền */
+  --s-bill-bg: #FDF2F8;
+  --s-bill-bd: #F472B6;
+  --s-bill-fg: #831843;
+  --s-bill-badge-bg: #FCE7F3;
+  --s-bill-badge-fg: #BE185D;
+
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Be Vietnam Pro', 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.sale-manager * {
+  box-sizing: border-box;
+}
+
+/* ------------------------------- Header ---------------------------------- */
+
+.sale-manager header {
+  background: #D2A97B;
+  padding: 14px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  box-shadow: 0 2px 10px rgba(42, 30, 20, 0.08);
+}
+
+.sale-manager .header-row {
+  max-width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sale-manager .brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.sale-manager .brand-logo-circle {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #2A1E14;
+  color: #E7C9A1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+.sale-manager .brand-text {
+  font-family: 'Fraunces', serif;
+  line-height: 1;
+  letter-spacing: 0.5px;
+  color: #2A1E14;
+}
+
+.sale-manager .brand-text .bold {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.sale-manager .brand-text .light {
+  font-size: 18px;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+.sale-manager .header-center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sale-manager .header-title-badge {
+  background: rgba(42, 30, 20, 0.12);
+  color: #2A1E14;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.sale-manager .header-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.65);
+  color: #2A1E14;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.sale-manager .status-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+}
+
+.sale-manager .header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.sale-manager .header-clock {
+  font-size: 13px;
+  font-weight: 600;
+  color: #2A1E14;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 5px 10px;
+  border-radius: 8px;
+  letter-spacing: 0.3px;
+}
+
+/* -------------------------------- Layout ---------------------------------- */
+
+.sale-manager main {
+  flex: 1;
+  max-width: 1440px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 20px 32px;
+}
+
+.sale-manager .main-content {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.sale-manager .floor {
+  flex: 1.5;
+  min-width: 0;
+}
+
+.sale-manager .order-detail {
+  flex: 1;
+  min-width: 340px;
+  max-width: 440px;
+  position: sticky;
+  top: 80px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(42, 30, 20, 0.05);
+  overflow: hidden;
+}
+
+/* ------------------------------ Lưới bàn (Floor) --------------------------- */
+
+.sale-manager .floor-head-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 10px rgba(42, 30, 20, 0.03);
+}
+
+.sale-manager .floor-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sale-manager .floor-title {
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.sale-manager .floor-quick-reload {
+  background: transparent;
+  border: 1px solid var(--line);
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sale-manager .floor-quick-reload:hover {
+  background: #F4EFE6;
+  color: var(--ink);
+}
+
+/* Filter pills */
+.sale-manager .floor-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sale-manager .filter-pill {
+  border: 1px solid var(--line);
+  background: #FFFFFF;
+  color: var(--ink-soft);
+  padding: 6px 13px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.sale-manager .filter-pill:hover {
+  border-color: var(--tan-deep);
+  color: var(--ink);
+}
+
+.sale-manager .filter-pill.active {
+  background: #2A1E14;
+  border-color: #2A1E14;
+  color: #E7C9A1;
+  box-shadow: 0 2px 8px rgba(42, 30, 20, 0.15);
+}
+
+.sale-manager .filter-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.08);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.sale-manager .filter-pill.active .filter-count-badge {
+  background: rgba(231, 201, 161, 0.25);
+  color: #E7C9A1;
+}
+
+/* Grid Table Cards */
+.sale-manager .floor-empty {
+  padding: 60px 20px;
+  background: var(--card);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.sale-manager .grid-table {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 14px;
+}
+
+.sale-manager .table-card {
+  padding: 16px 14px 14px;
+  border: 1.5px solid;
+  border-radius: var(--radius-md);
+  background: var(--card);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 112px;
+  position: relative;
+}
+
+.sale-manager .table-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(42, 30, 20, 0.08);
+}
+
+.sale-manager .table-card.selected {
+  outline: 2.5px solid #2A1E14;
+  outline-offset: 2px;
+  box-shadow: 0 8px 20px rgba(42, 30, 20, 0.16);
+}
+
+.sale-manager .table-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.sale-manager .table-num {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.2px;
+}
+
+.sale-manager .table-card-status-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.sale-manager .table-card-bottom {
+  margin-top: 10px;
+}
+
+.sale-manager .table-card-desc {
+  font-size: 11.5px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+
+.sale-manager .table-card-meta {
+  margin-top: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.06);
+  display: inline-block;
+}
+
+/* Card Status Themes */
+.sale-manager .tc-empty {
+  background: var(--s-empty-bg);
+  border-color: var(--s-empty-bd);
+  color: var(--s-empty-fg);
+}
+.sale-manager .tc-empty .table-card-status-badge {
+  background: var(--s-empty-badge-bg);
+  color: var(--s-empty-badge-fg);
+}
+
+.sale-manager .tc-neworder {
+  background: var(--s-new-bg);
+  border-color: var(--s-new-bd);
+  color: var(--s-new-fg);
+}
+.sale-manager .tc-neworder .table-card-status-badge {
+  background: var(--s-new-badge-bg);
+  color: var(--s-new-badge-fg);
+}
+
+.sale-manager .tc-serve {
+  background: var(--s-serve-bg);
+  border-color: var(--s-serve-bd);
+  color: var(--s-serve-fg);
+}
+.sale-manager .tc-serve .table-card-status-badge {
+  background: var(--s-serve-badge-bg);
+  color: var(--s-serve-badge-fg);
+}
+
+.sale-manager .tc-call {
+  background: var(--s-call-bg);
+  border-color: var(--s-call-bd);
+  color: var(--s-call-fg);
+}
+.sale-manager .tc-call .table-card-status-badge {
+  background: var(--s-call-badge-bg);
+  color: var(--s-call-badge-fg);
+}
+
+.sale-manager .tc-bill {
+  background: var(--s-bill-bg);
+  border-color: var(--s-bill-bd);
+  color: var(--s-bill-fg);
+}
+.sale-manager .tc-bill .table-card-status-badge {
+  background: var(--s-bill-badge-bg);
+  color: var(--s-bill-badge-fg);
+}
+
+/* Bàn Bảo Trì (PhysicalState: MAINTENANCE) */
+.sale-manager .tc-maintenance {
+  background: #FFF7ED;
+  border-color: #FB923C;
+  color: #9A3412;
+}
+.sale-manager .tc-maintenance .table-card-status-badge {
+  background: #FFEDD5;
+  color: #C2410C;
+}
+
+/* Bàn Bị Hỏng (PhysicalState: BROKEN) */
+.sale-manager .tc-broken {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+  color: #64748B;
+  opacity: 0.85;
+}
+.sale-manager .tc-broken .table-card-status-badge {
+  background: #E2E8F0;
+  color: #475569;
+}
+
+/* ------------------------------- Hóa đơn (Order Detail / Receipt) --------- */
+
+.sale-manager .order-detail-header {
+  padding: 18px 20px 14px;
+  background: #F5EAD9;
+  border-bottom: 1px solid var(--line);
+}
+
+.sale-manager .order-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.sale-manager .order-title {
+  margin: 0;
+  font-family: 'Fraunces', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #2A1E14;
+}
+
+.sale-manager .order-badge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.sale-manager .badge-empty {
+  background: var(--s-empty-badge-bg);
+  color: var(--s-empty-badge-fg);
+}
+.sale-manager .badge-neworder {
+  background: var(--s-new-badge-bg);
+  color: var(--s-new-badge-fg);
+}
+.sale-manager .badge-serve {
+  background: var(--s-serve-badge-bg);
+  color: var(--s-serve-badge-fg);
+}
+.sale-manager .badge-call {
+  background: var(--s-call-badge-bg);
+  color: var(--s-call-badge-fg);
+}
+.sale-manager .badge-bill {
+  background: var(--s-bill-badge-bg);
+  color: var(--s-bill-badge-fg);
+}
+.sale-manager .badge-maintenance {
+  background: #FFEDD5;
+  color: #C2410C;
+}
+.sale-manager .badge-broken {
+  background: #E2E8F0;
+  color: #475569;
+}
+
+.sale-manager .table-warning-banner {
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sale-manager .banner-maintenance {
+  background: #FFEDD5;
+  color: #9A3412;
+  border: 1px solid #FDBA74;
+}
+
+.sale-manager .banner-broken {
+  background: #FEE2E2;
+  color: #991B1B;
+  border: 1px solid #FCA5A5;
+}
+
+.sale-manager .order-meta {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sale-manager .order-meta-dot {
+  opacity: 0.5;
+}
+
+.sale-manager .order-body {
+  padding: 16px 20px 20px;
+}
+
+.sale-manager .order-table-head {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink-soft);
+}
+
+.sale-manager .order-scroll {
+  max-height: 40vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.sale-manager .order-empty-message {
+  padding: 42px 14px;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.sale-manager .order-row {
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--line-light);
+}
+
+.sale-manager .order-row:last-child {
+  border-bottom: none;
+}
+
+.sale-manager .order-row-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.sale-manager .order-item-left {
+  flex: 1;
+  min-width: 0;
+}
+
+.sale-manager .order-item-title-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.sale-manager .order-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #2A1E14;
+}
+
+.sale-manager .tag {
+  display: inline-block;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.sale-manager .tag-new {
+  background: #FEF3C7;
+  color: #92400E;
+}
+.sale-manager .tag-confirmed {
+  background: #E0E7FF;
+  color: #3730A3;
+}
+.sale-manager .tag-served {
+  background: #D1FAE5;
+  color: #065F46;
+}
+.sale-manager .tag-pending {
+  background: #F3F4F6;
+  color: #4B5563;
+}
+
+.sale-manager .order-item-note {
+  margin-top: 3px;
+  font-size: 11.5px;
+  font-style: italic;
+  color: #8C7662;
+}
+
+.sale-manager .order-item-subinfo {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sale-manager .order-item-qty {
+  font-weight: 700;
+  color: #2A1E14;
+}
+
+.sale-manager .order-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.sale-manager .order-price {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--tan-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.sale-manager .order-item-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.sale-manager .action-btn-mini {
+  padding: 2px 7px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: #FFFFFF;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sale-manager .action-btn-mini:hover {
+  background: #F5EAD9;
+  color: var(--ink);
+}
+
+.sale-manager .action-btn-mini.delete {
+  color: #DC2626;
+  border-color: #FECACA;
+}
+
+.sale-manager .action-btn-mini.delete:hover {
+  background: #FEE2E2;
+}
+
+/* Receipt Total & Actions */
+.sale-manager .order-total-card {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 2px solid #2A1E14;
+}
+
+.sale-manager .order-total-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.sale-manager .total-label {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--ink-soft);
+}
+
+.sale-manager .total-value {
+  font-size: 24px;
+  font-weight: 800;
+  color: #2A1E14;
+  font-variant-numeric: tabular-nums;
+}
+
+.sale-manager .order-actions-group {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sale-manager .btn-pos-primary {
+  width: 100%;
+  padding: 13px 18px;
+  border-radius: var(--radius-md);
+  border: none;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.sale-manager .btn-nhandon {
+  background: #F59E0B;
+  color: #FFFFFF;
+}
+.sale-manager .btn-nhandon:hover:not(:disabled) {
+  background: #D97706;
+}
+
+.sale-manager .btn-served {
+  background: #10B981;
+  color: #FFFFFF;
+}
+.sale-manager .btn-served:hover:not(:disabled) {
+  background: #059669;
+}
+
+.sale-manager .btn-thanhtoan {
+  background: #2A1E14;
+  color: #E7C9A1;
+}
+.sale-manager .btn-thanhtoan:hover:not(:disabled) {
+  background: #3F2F21;
+}
+
+.sale-manager .btn-pos-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.sale-manager .action-empty-hint {
+  padding: 10px 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ------------------------------- Footer ----------------------------------- */
+
+.sale-manager footer {
+  margin-top: auto;
+  background: var(--footer-bg);
+  color: var(--footer-soft);
+  padding: 24px 20px;
+  text-align: center;
+}
+
+.sale-manager .footer-contact-info {
+  margin-top: 10px;
+  font-size: 12px;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+/* -------------------------------- Modals ---------------------------------- */
+
+.sale-manager .modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(42, 30, 20, 0.65);
+  backdrop-filter: blur(3px);
+}
+
+.sale-manager .modal-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 24px;
+  background: #FFFDF9;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.sale-manager .modal-title {
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+  font-family: 'Fraunces', serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #2A1E14;
+}
+
+.sale-manager .modal-title.done-title {
+  padding: 0;
+  margin-bottom: 8px;
+  border: none;
+  text-align: center;
+}
+
+.sale-manager .done-icon-circle {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: #D1FAE5;
+  color: #065F46;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  font-weight: 800;
+  margin: 0 auto 12px;
+}
+
+.sale-manager .done-text {
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--ink);
+  margin: 4px 0;
+}
+
+.sale-manager .done-muted {
+  color: var(--ink-soft);
+  font-size: 12px;
+  margin-top: 14px;
+}
+
+.sale-manager .done-change {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--tan-deep);
+  margin: 4px 0 20px;
+}
+
+.sale-manager .pay-table {
+  font-size: 13.5px;
+}
+
+.sale-manager .pay-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+}
+
+.sale-manager .pay-row + .pay-row {
+  border-top: 1px dashed var(--line-light);
+}
+
+.sale-manager .pay-label {
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.sale-manager .pay-value {
+  font-weight: 700;
+  font-size: 15px;
+  color: #2A1E14;
+}
+
+.sale-manager .pay-input {
+  width: 160px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--tan);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: right;
+  outline: none;
+  background: #FFFFFF;
+}
+
+.sale-manager .pay-input:focus {
+  border-color: var(--tan-deep);
+  box-shadow: 0 0 0 3px rgba(156, 107, 58, 0.2);
+}
+
+.sale-manager .pay-change {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 2px solid #2A1E14;
+}
+
+.sale-manager .pay-change .pay-label {
+  font-size: 14px;
+  color: #2A1E14;
+}
+
+.sale-manager .pay-change .pay-value {
+  font-size: 20px;
+  color: var(--tan-deep);
+}
+
+.sale-manager .pay-quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 16px 0;
+}
+
+.sale-manager .quick-cash-btn {
+  padding: 8px 4px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: #FFFFFF;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2A1E14;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sale-manager .quick-cash-btn:hover {
+  background: #F5EAD9;
+  border-color: var(--tan);
+}
+
+.sale-manager .pay-warning {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: #FEE2E2;
+  color: #991B1B;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.sale-manager .modal-actions-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.sale-manager .btn-modal-primary {
+  flex: 1;
+  padding: 11px 16px;
+  border-radius: var(--radius-sm);
+  border: none;
+  background: #2A1E14;
+  color: #E7C9A1;
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.sale-manager .btn-modal-primary:hover:not(:disabled) {
+  background: #3F2F21;
+}
+
+.sale-manager .btn-modal-ghost {
+  padding: 11px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sale-manager .btn-modal-ghost:hover {
+  background: #F5EAD9;
+}
+
+/* -------------------- Chuông thông báo nổi -------------------------------- */
+
+.sale-manager .notif-bell-wrap {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.sale-manager .notif-bell {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: #2A1E14;
+  color: #E7C9A1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(42, 30, 20, 0.3);
+  transition: transform 0.15s, filter 0.15s;
+}
+
+.sale-manager .notif-bell:hover {
+  transform: scale(1.06);
+}
+
+.sale-manager .notif-badge {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: #EF4444;
+  color: #FFFFFF;
+  font-size: 10.5px;
+  font-weight: 700;
+  line-height: 19px;
+  text-align: center;
+  border: 2px solid #F6EEE1;
+}
+
+.sale-manager .notif-panel {
+  width: 320px;
+  max-height: 380px;
+  background: #FFFDF9;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  box-shadow: 0 12px 32px rgba(42, 30, 20, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.sale-manager .notif-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  font-weight: 700;
+  color: #2A1E14;
+  background: #F5EAD9;
+}
+
+.sale-manager .notif-clear {
+  border: none;
+  background: none;
+  color: var(--tan-deep);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.sale-manager .notif-clear:hover {
+  text-decoration: underline;
+}
+
+.sale-manager .notif-list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 4px 0;
+}
+
+.sale-manager .notif-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line-light);
+}
+
+.sale-manager .notif-item:last-child {
+  border-bottom: none;
+}
+
+.sale-manager .notif-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+  background: var(--tan);
+}
+
+.sale-manager .notif-item.success .notif-dot { background: #10B981; }
+.sale-manager .notif-item.error .notif-dot { background: #EF4444; }
+
+.sale-manager .notif-body { flex: 1; min-width: 0; }
+
+.sale-manager .notif-text {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: #2A1E14;
+}
+
+.sale-manager .notif-time {
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+.sale-manager .notif-close {
+  background: none;
+  border: none;
+  color: #9CA3AF;
+  cursor: pointer;
+  padding: 2px;
+  font-size: 12px;
+}
+
+.sale-manager .notif-close:hover {
+  color: #EF4444;
+}
+
+/* ============ Modal sửa món + xác nhận xoá ============ */
+.sale-manager .edit-item-modal,
+.sale-manager .confirm-modal { max-width: 380px; }
+
+.sale-manager .ei-field { margin-bottom: 16px; }
+.sale-manager .ei-label {
+  display: block; font-size: 13px; font-weight: 600;
+  color: var(--ink-soft, #6E5C4A); margin-bottom: 7px;
+}
+.sale-manager .ei-qty { display: flex; align-items: center; gap: 10px; }
+.sale-manager .ei-qty-btn {
+  width: 38px; height: 38px; border-radius: 9px;
+  border: 1px solid var(--line, #E4D2B8); background: #fff;
+  font-size: 20px; font-weight: 700; color: var(--ink, #33261A);
+  cursor: pointer; line-height: 1;
+}
+.sale-manager .ei-qty-btn:hover { border-color: var(--tan-deep, #9C6B3A); background: #FBF4E7; }
+.sale-manager .ei-qty-input {
+  width: 70px; height: 38px; text-align: center;
+  border: 1px solid var(--line, #E4D2B8); border-radius: 9px;
+  font-family: inherit; font-size: 15px; font-weight: 700;
+  color: var(--ink, #33261A); outline: none;
+}
+.sale-manager .ei-qty-input:focus { border-color: var(--tan-deep, #9C6B3A); }
+.sale-manager .ei-note {
+  width: 100%; border: 1px solid var(--line, #E4D2B8); border-radius: 9px;
+  padding: 10px 12px; font-family: inherit; font-size: 14px;
+  color: var(--ink, #33261A); outline: none; resize: vertical;
+}
+.sale-manager .ei-note:focus { border-color: var(--tan-deep, #9C6B3A); }
+
+.sale-manager .confirm-message {
+  font-size: 14px; line-height: 1.6; color: var(--ink, #33261A);
+  margin: 4px 0 20px;
+}
+.sale-manager .btn-danger {
+  width: 100%;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #DC2626; 
+  color: #fff; 
+  border: 1.5px solid #DC2626;
+}
+.sale-manager .btn-danger:hover:not(:disabled) { filter: brightness(1.05); }
+
+/* ----------------------------- Responsive --------------------------------- */
+
+@media (max-width: 900px) {
+  .sale-manager .main-content {
+    flex-direction: column;
+  }
+  .sale-manager .order-detail {
+    max-width: 100%;
+    position: static;
+  }
+}

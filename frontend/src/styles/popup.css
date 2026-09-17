@@ -1,0 +1,86 @@
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.popup-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.popup-box {
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px 28px 24px;
+  width: min(420px, 92vw);
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  animation: popup-in 0.25s ease;
+}
+
+@keyframes popup-in {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.popup-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 auto 16px;
+  color: #fff;
+}
+
+.popup-success .popup-icon { background: #22c55e; }
+.popup-error .popup-icon { background: #ef4444; }
+.popup-info .popup-icon { background: #C89A63; }
+.popup-warning .popup-icon { background: #f59e0b; }
+
+.popup-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #5A3726;
+  margin-bottom: 8px;
+}
+
+.popup-message {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.popup-btn {
+  width: 100%;
+  height: 48px;
+  border: none;
+  border-radius: 16px;
+  background: #C89A63;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.popup-btn:hover {
+  background: #B78350;
+}

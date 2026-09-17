@@ -1,0 +1,473 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap');
+
+/* ==========================================================================
+   Trang Quản lý phản hồi
+   ========================================================================== */
+
+.feedback-manager {
+  --bg: #F6EEE1;
+  --tan-light: #E7C9A1;
+  --tan: #D5A874;
+  --tan-deep: #9C6B3A;
+  --ink: #33261A;
+  --ink-soft: #6E5C4A;
+  --card: #FFFDF9;
+  --line: #E4D2B8;
+  --footer-bg: #39291F;
+  --footer-soft: #C9B29B;
+  --star: #E0A32E;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Be Vietnam Pro', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  padding: 0;
+}
+
+.feedback-manager * {
+  box-sizing: border-box;
+}
+
+/* ------------------------------- Header ---------------------------------- */
+
+.feedback-manager header {
+  background: var(--tan);
+  padding: 16px 18px 18px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.feedback-manager .header-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.feedback-manager .brand {
+  display: flex;
+  align-items: center;
+}
+
+.feedback-manager .brand-logo {
+  height: 40px;
+  width: 40px;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.feedback-manager .brand-name-bold,
+.feedback-manager .brand-name-not-bold {
+  font-family: 'Fraunces', serif;
+  line-height: 1;
+  margin: 0;
+  letter-spacing: .3px;
+  color: var(--ink);
+  display: inline-block;
+}
+
+.feedback-manager .brand-name-bold {
+  font-size: 24px;
+  font-weight: bolder;
+}
+
+.feedback-manager .brand-name-not-bold {
+  font-size: 19px;
+  font-weight: lighter;
+}
+
+.feedback-manager .header-title {
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #4A3627;
+}
+
+/* --------------------------- Thông báo API -------------------------------- */
+
+.feedback-manager .api-message {
+  margin: 12px 22px 0;
+  padding: 11px 16px;
+  border-radius: 10px;
+  background: #fbeaea;
+  border: 1px solid #d07a7a;
+  color: #8b2c2c;
+  font-size: 13px;
+}
+
+/* -------------------------------- Main ------------------------------------ */
+
+.feedback-manager main {
+  flex: 1;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 22px;
+}
+
+.feedback-manager .page-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.feedback-manager .page-title {
+  margin: 0;
+  font-family: "Fraunces", serif;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.feedback-manager .page-count {
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------ Bộ lọc ------------------------------------ */
+
+.feedback-manager .filter-bar {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.feedback-manager .filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.feedback-manager .filter-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.feedback-manager .filter-select {
+  min-width: 170px;
+  padding: 8px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+  cursor: pointer;
+}
+
+.feedback-manager .filter-select:focus {
+  border-color: var(--tan-deep);
+}
+
+.feedback-manager .btn-clear,
+.feedback-manager .btn-reload {
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.feedback-manager .btn-clear:hover,
+.feedback-manager .btn-reload:hover:not(:disabled) {
+  border-color: var(--tan-deep);
+  color: var(--tan-deep);
+}
+
+.feedback-manager .btn-reload:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ------------------------------- Bảng ------------------------------------- */
+
+.feedback-manager .table-scroll {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow-x: auto;
+}
+
+.feedback-manager .fb-table {
+  width: 100%;
+  min-width: 940px;
+  border-collapse: collapse;
+}
+
+.feedback-manager .fb-table thead th {
+  padding: 13px 14px;
+  background: #f3e9d8;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.feedback-manager .th-id {
+  width: 52px;
+}
+
+.feedback-manager .fb-table thead th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.feedback-manager .fb-table thead th.sortable:hover {
+  color: var(--tan-deep);
+}
+
+.feedback-manager .sort-ind {
+  display: inline-block;
+  width: 12px;
+  font-size: 10px;
+  color: var(--tan-deep);
+}
+
+.feedback-manager .fb-table tbody td {
+  padding: 13px 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+  vertical-align: top;
+}
+
+.feedback-manager .fb-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.feedback-manager .fb-table tbody tr:hover {
+  background: #fbf4e7;
+}
+
+.feedback-manager .table-empty {
+  padding: 40px;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+.feedback-manager .col-id {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.feedback-manager .col-time {
+  font-size: 12px;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.feedback-manager .col-name {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.feedback-manager .col-email {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+
+.feedback-manager .col-item {
+  white-space: nowrap;
+}
+
+.feedback-manager .col-content {
+  min-width: 220px;
+  max-width: 340px;
+  line-height: 1.5;
+}
+
+/* ------------------------------ Đánh giá ---------------------------------- */
+
+.feedback-manager .rating {
+  display: flex;
+  gap: 1px;
+  color: var(--star);
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.feedback-manager .rating .off {
+  color: #d9cbb2;
+}
+
+.feedback-manager .rating-num {
+  margin-left: 4px;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+/* ------------------------------- Hình ảnh --------------------------------- */
+
+.feedback-manager .no-img {
+  color: var(--ink-soft);
+}
+
+.feedback-manager .thumb {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.feedback-manager .thumb:hover {
+  border-color: var(--tan-deep);
+}
+
+.feedback-manager .thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ------------------------------ Phân trang -------------------------------- */
+
+.feedback-manager .pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.feedback-manager .pg-nums {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.feedback-manager .pg-num {
+  min-width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.feedback-manager .pg-num.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--tan-light);
+  font-weight: 700;
+}
+
+.feedback-manager .pg-num:hover:not(.active) {
+  border-color: var(--tan-deep);
+}
+
+.feedback-manager .pg-btn {
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.feedback-manager .pg-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ------------------------------ Ảnh phóng to ------------------------------ */
+
+.feedback-manager .lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background: rgba(25, 18, 12, 0.82);
+}
+
+.feedback-manager .lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 10px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+.feedback-manager .lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.feedback-manager .lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+/* ------------------------------- Footer ----------------------------------- */
+
+.feedback-manager footer {
+  margin: 100px 0 0 0;
+  background: var(--footer-bg);
+  color: var(--footer-soft);
+  padding: 24px 20px 26px;
+  text-align: left;
+}
+
+.feedback-manager footer .brand-logo {
+  height: 48px;
+  width: 48px;
+  margin-right: 0;
+  margin-bottom: 14px;
+}
+
+.feedback-manager .contact-infor {
+  font-size: 12.5px;
+  line-height: 1.9;
+  color: var(--footer-soft);
+  margin: 0;
+}
+
+
+/* ------------------------------ Responsive -------------------------------- */
+
+@media (max-width: 820px) {
+  .feedback-manager .page-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+}

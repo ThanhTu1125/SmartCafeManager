@@ -1,0 +1,10 @@
+<svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Smart Cafe">
+  <circle cx="60" cy="60" r="56" fill="#C89A63"/>
+  <path d="M34 78V46C34 40.4772 38.4772 36 44 36H72C77.5228 36 82 40.4772 82 46V78" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  <path d="M28 78H88" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  <path d="M82 52H90C95.5228 52 100 56.4772 100 62V66C100 71.5228 95.5228 76 90 76H82" stroke="#5A3726" stroke-width="5" stroke-linecap="round"/>
+  <path d="M48 28C48 28 52 22 60 22C68 22 72 28 72 28" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
+  <circle cx="48" cy="58" r="4" fill="#5A3726"/>
+  <circle cx="60" cy="52" r="4" fill="#5A3726"/>
+  <circle cx="72" cy="58" r="4" fill="#5A3726"/>
+</svg>

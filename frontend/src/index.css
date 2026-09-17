@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+:root {
+  --scm-accent: #c89a63;
+  --scm-accent-soft: #e8d5b7;
+}
+
+/* Đảm bảo vùng trống của khung chứa toast không chặn thao tác click nút ☰ trên Header */
+.Toastify__toast-container {
+  pointer-events: none !important;
+  z-index: 99999 !important;
+}
+
+.Toastify__toast {
+  pointer-events: auto !important;
+}

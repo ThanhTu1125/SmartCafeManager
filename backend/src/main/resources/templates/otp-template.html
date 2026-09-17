@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mã OTP Khôi Phục Mật Khẩu</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f5f7;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .header {
+            background-color: #4a3b32; /* Màu nâu cafe */
+            padding: 25px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            color: #ffffff;
+            font-size: 26px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .content {
+            padding: 35px;
+            color: #444444;
+            line-height: 1.6;
+        }
+        .content p {
+            margin: 10px 0 15px 0;
+            font-size: 16px;
+        }
+        .otp-wrapper {
+            text-align: center;
+            margin: 35px 0;
+        }
+        .otp-code {
+            display: inline-block;
+            font-size: 36px;
+            font-weight: bold;
+            color: #d35400; /* Màu cam nổi bật */
+            background-color: #fdf2e9;
+            padding: 15px 40px;
+            border-radius: 8px;
+            letter-spacing: 8px;
+            border: 1px dashed #e67e22;
+        }
+        .warning {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #888888;
+            border-top: 1px solid #eeeeee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Smart Cafe</h1>
+        </div>
+        <div class="content">
+            <p>Xin chào,</p>
+            <p>Chúng tôi nhận được yêu cầu khôi phục mật khẩu cho tài khoản của bạn tại hệ thống quản lý <strong>Smart Cafe</strong>.</p>
+            <p>Vui lòng sử dụng mã xác thực (OTP) dưới đây để tiếp tục quá trình thiết lập mật khẩu mới:</p>
+            
+            <div class="otp-wrapper">
+                <span class="otp-code">%s</span>
+            </div>
+            
+            <p>Mã xác thực này sẽ hết hạn trong vòng <span class="warning">5 phút</span>.</p>
+            <p>Nếu bạn không yêu cầu thay đổi mật khẩu, vui lòng bỏ qua email này. Tài khoản của bạn vẫn an toàn và không có thay đổi nào được thực hiện.</p>
+            
+            <p>Trân trọng,<br><strong>Đội ngũ Smart Cafe</strong></p>
+        </div>
+        <div class="footer">
+            &copy; 2026 Smart Cafe Management System.<br>
+            Đây là email được gửi tự động, vui lòng không phản hồi lại địa chỉ này.
+        </div>
+    </div>
+</body>
+</html>

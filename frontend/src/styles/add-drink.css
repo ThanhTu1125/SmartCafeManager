@@ -1,0 +1,166 @@
+:root {
+  --bg: #F6EEE1;
+  --tan-light: #E7C9A1;
+  --tan-deep: #9C6B3A;
+  --ink: #33261A;
+  --ink-soft: #6E5C4A;
+  --line: #E4D2B8;
+}
+
+/* Mọi rule đều scope trong .add-drink để không xung đột với modal Phản Hồi */
+
+.modal-overlay.add-drink {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(51, 38, 26, .45);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.modal-overlay.add-drink.show {
+  display: flex;
+}
+
+.add-drink .modal-box {
+  width: 100%;
+  max-width: 320px;
+  background: #fff;
+  border: 1px solid var(--tan-deep);
+  border-radius: 10px;
+  padding: 18px 20px 20px;
+  position: relative;
+}
+
+/* Tiêu đề nằm đè lên viền trên như mockup (kiểu legend) */
+.add-drink .modal-title {
+  position: absolute;
+  top: -10px;
+  left: 16px;
+  background: #fff;
+  padding: 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  border-radius: 4px;
+}
+
+.add-drink .modal-field-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 16px 0 14px;
+  justify-content: flex-start;
+}
+
+.add-drink .modal-field {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.add-drink .modal-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.add-drink .modal-value {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.add-drink .modal-input {
+  width: 130px;
+  font-family: inherit;
+  font-size: 13.5px;
+  color: var(--ink);
+  border: 1px solid var(--tan-deep);
+  border-radius: 4px;
+  padding: 7px 10px;
+  background: #fff;
+  outline: none;
+}
+
+.add-drink .modal-input:focus {
+  border-color: var(--ink);
+}
+
+.add-drink .modal-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.add-drink .btn-them,
+.add-drink .btn-dong {
+  min-width: 96px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: 1px solid var(--tan-deep);
+  background: #fff;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-drink .btn-them:hover,
+.add-drink .btn-dong:hover {
+  background: var(--tan-light);
+}
+
+.add-drink .btn-them:active,
+.add-drink .btn-dong:active {
+  transform: scale(.97);
+}
+
+.add-drink .btn-them:focus-visible,
+.add-drink .btn-dong:focus-visible {
+  outline: 2px solid var(--tan-deep);
+  outline-offset: 2px;
+}
+
+/* ---------- Order note ---------- */
+
+.order-note {
+  margin: 12px 0 4px;
+}
+
+.order-note-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.order-note-input {
+  width: 100%;
+  min-height: 56px;
+  resize: none;
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #fff;
+  outline: none;
+}
+
+.order-note-input:focus {
+  border-color: var(--tan-deep);
+}
+
+.order-note-input::placeholder {
+  color: var(--ink-soft);
+  opacity: .7;
+}

@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-sample-data-from-dump
+      author: admin
+      changes:
+        - sqlFile:
+            path: db/changelog/data/init-data.sql
+            relativeToChangelogFile: false

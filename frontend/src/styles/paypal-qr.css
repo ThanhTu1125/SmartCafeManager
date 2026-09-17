@@ -1,0 +1,110 @@
+:root {
+  --tan-light: #E7C9A1;
+  --tan-deep: #9C6B3A;
+  --ink: #33261A;
+  --ink-soft: #6E5C4A;
+  --line: #E4D2B8;
+  --danger: #D6544A;
+}
+
+.modal-overlay.paypal-qr {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(51, 38, 26, .45);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 110;
+}
+
+.modal-overlay.paypal-qr.show {
+  display: flex;
+}
+
+.paypal-qr .modal-box {
+  width: 100%;
+  max-width: 320px;
+  background: #fff;
+  border: 1px solid var(--tan-deep);
+  border-radius: 10px;
+  padding: 18px 20px 20px;
+  text-align: center;
+}
+
+.paypal-qr .modal-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.pq-loading {
+  padding: 30px 0;
+  font-size: 13.5px;
+  color: var(--ink-soft);
+}
+
+.pq-hint {
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin: 0 0 14px;
+}
+
+.pq-qr {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px;
+  background: #fff;
+}
+
+.pq-qr img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.pq-approve {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border-radius: 999px;
+  background: #0070BA; /* PayPal blue */
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.pq-approve:hover {
+  filter: brightness(1.06);
+}
+
+.pq-error {
+  font-size: 12.5px;
+  color: var(--danger);
+  margin-bottom: 12px;
+}
+
+.pq-close {
+  width: 100%;
+  padding: 10px;
+  border-radius: 999px;
+  border: 1px solid var(--tan-deep);
+  background: #fff;
+  color: var(--tan-deep);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pq-close:hover {
+  background: var(--tan-light);
+}
