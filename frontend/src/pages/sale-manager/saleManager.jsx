@@ -571,7 +571,7 @@ function SaleManager() {
   // WebSocket
   useEffect(() => {
     const client = new Client({
-      brokerURL: "ws://localhost:8080/ws",
+      brokerURL: "ws://192.168.1.100:8080/ws",
       reconnectDelay: 5000,
       onConnect: () => {
         client.subscribe(`/topic/table-events`, (message) => {

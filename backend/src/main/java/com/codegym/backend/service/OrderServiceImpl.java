@@ -32,7 +32,6 @@ public class OrderServiceImpl implements OrderService {
     private final ItemRepository itemRepository;
     private final FeedbackRepository feedbackRepository;
     
-    // Công cụ bắn WebSocket cho nhân viên
     private final SimpMessagingTemplate messagingTemplate;
 
    @Override
@@ -47,21 +46,16 @@ public class OrderServiceImpl implements OrderService {
 
         ServiceStatus currentStatus = table.getServiceStatus();
 
-        // 1. Kiểm tra nếu bàn đang ở trạng thái Yêu cầu thanh toán
         boolean isCurrentRequestingBill = currentStatus != null && (
                 currentStatus.name().equals("REQUESTING_BILL") || 
                 currentStatus.name().equals("WAITING_PAYMENT") ||
                 currentStatus.name().equals("PAYMENT_REQUESTED")
         );
 
-        // 2. Kiểm tra nếu hành động mới là Gọi nhân viên
         boolean isNewCallStaff = status.name().equals("CALLING_STAFF") || 
                                  status.name().equals("NEEDS_ATTENTION") ||
                                  status.name().equals("CALL_STAFF");
 
-        // 🛡️ NẾU ĐANG CHỜ TÍNH TIỀN MÀ KHÁCH BẤM GỌI NHÂN VIÊN:
-        // -> Giữ nguyên status trong DB (để màn hình POS giữ nút Xác nhận thanh toán)
-        // -> Vẫn bắn WebSocket để chuông/thông báo ở POS rung lên
         if (isCurrentRequestingBill && isNewCallStaff) {
             log.info("Bàn {} đang chờ tính tiền, giữ nguyên trạng thái DB và chỉ gửi WebSocket gọi nhân viên.", tableId);
             sendSocketWithTransactionSync(
@@ -70,15 +64,13 @@ public class OrderServiceImpl implements OrderService {
                 "CALL_STAFF", 
                 "Bàn " + tableId + " đang gọi nhân viên! (Đang chờ tính tiền)"
             );
-            return; // Dừng lại tại đây, không lưu status mới vào DB
+            return;
         }
 
-        // Cập nhật DB bình thường cho các trường hợp khác
         table.setServiceStatus(status);
         table.setIsOccupied(status != ServiceStatus.EMPTY);
         tablesRepository.save(table);
 
-        // Phân loại tin nhắn gửi WebSocket
         String notifyType = "TABLE_UPDATED";
         String notifyMessage = "Bàn " + tableId + " đã cập nhật trạng thái.";
 
@@ -90,7 +82,6 @@ public class OrderServiceImpl implements OrderService {
             notifyMessage = "Bàn " + tableId + " đang gọi nhân viên!";
         }
 
-        // Gửi WebSocket sau khi lưu DB thành công
         sendSocketWithTransactionSync("/topic/staff/tables", tableId, notifyType, notifyMessage);
     }
 
@@ -104,7 +95,6 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("Không thể hủy món do Bếp đã nhận chế biến hoặc đã phục vụ!");
         }
 
-        // LẤY SỐ LƯỢNG AN TOÀN
         int rawQty = detail.getQuantity() != null ? detail.getQuantity() : 0;
         if (rawQty <= 0) {
             log.warn("Cảnh báo: OrderDetail ID {} có số lượng không hợp lệ ({}), tự động điều chỉnh về 1", orderDetailId, rawQty);
@@ -119,7 +109,6 @@ public class OrderServiceImpl implements OrderService {
         }
         orderDetailRepository.save(detail);
 
-        // Cập nhật lại số lượng đã bán của Item
         Item item = detail.getItem();
         if (item != null) {
             int currentCount = item.getTotalOrderCount() != null ? item.getTotalOrderCount() : 0;
@@ -127,7 +116,6 @@ public class OrderServiceImpl implements OrderService {
             itemRepository.save(item);
         }
 
-        // Cập nhật lại tổng tiền hóa đơn
         TableOrder order = detail.getOrder();
         if (order != null) {
             BigDecimal price = getSafeUnitPrice(detail);
@@ -137,7 +125,6 @@ public class OrderServiceImpl implements OrderService {
             order.setTotalAmount(currentTotal.subtract(itemTotal).max(BigDecimal.ZERO));
             tableOrderRepository.save(order);
             
-            // BẮN THÔNG BÁO CHO NHÂN VIÊN/BẾP BIẾT KHÁCH VỪA HỦY MÓN
             String itemName = item != null ? item.getItemName() : "Món ăn";
             Long tableId = order.getTable() != null ? order.getTable().getTableId() : 0L;
             
@@ -201,7 +188,6 @@ public class OrderServiceImpl implements OrderService {
                 .build();
     }
 
-    // --- PRIVATE HELPER METHODS ---
 
     private BigDecimal getSafeUnitPrice(OrderDetail detail) {
         if (detail.getUnitPrice() != null) return detail.getUnitPrice();
@@ -214,7 +200,6 @@ public class OrderServiceImpl implements OrderService {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    // Hàm Helper hỗ trợ bắn WebSocket an toàn sau khi commit Database
     private void sendSocketWithTransactionSync(String destination, Long tableId, String type, String message) {
         Runnable sendTask = () -> {
             try {

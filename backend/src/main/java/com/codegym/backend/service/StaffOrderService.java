@@ -13,10 +13,8 @@ public interface StaffOrderService {
 
     Tables getTableInfo(Long tableId);
 
-    // 💡 Đổi Map<String, Object> thành ActiveOrderDTO ở dấydada
     ActiveOrderDTO getActiveOrderByTable(Long tableId);
 
-    //  (trả về DTO):
     List<OrderDetailResponseDTO> getOrderDetailsByTable(Long tableId);
 
     void approveCashPayment(Long tableId);

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TableEventDTO {
-    private String type;      // NEW_ORDER_SUBMITTED, CALL_STAFF, PAYMENT_REQUESTED, TABLE_CLEARED, ORDER_CONFIRMED, ALL_ITEMS_SERVED
-    private String message;   // Nội dung hiển thị ở chuông/toast
-    private Long tableId;     // ID bàn tác động
+    private String type;
+    private String message;
+    private Long tableId;
 }

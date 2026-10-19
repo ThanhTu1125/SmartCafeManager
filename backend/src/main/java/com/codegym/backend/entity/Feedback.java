@@ -32,11 +32,11 @@ public class Feedback extends BaseEntity {
     private Long feedbackId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id", nullable = false) // Bắt buộc phải gắn với 1 món
+    @JoinColumn(name = "item_id", nullable = false)
     private Item item;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", nullable = true) // Allow NULL cho khách chưa đăng nhập
+    @JoinColumn(name = "customer_id", nullable = true)
     private Customer customer;
 
     @Column(name = "sender_name", nullable = false)

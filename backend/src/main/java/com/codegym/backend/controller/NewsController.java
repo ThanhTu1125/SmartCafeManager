@@ -26,9 +26,6 @@ public class NewsController {
 
     private final NewsService newsService;
 
-    // ==========================================
-    // 1. PUBLIC API (KHÁCH HÀNG / VÃNG LAI)
-    // ==========================================
 
     /**
      * Lấy danh sách tin tức (Có phân trang, bỏ qua nội dung chi tiết)
@@ -55,9 +52,6 @@ public class NewsController {
         }
     }
 
-    // ==========================================
-    // 2. STAFF & ADMIN API (QUẢN LÝ BÀI VIẾT)
-    // ==========================================
 
     /**
      * Tạo mới một bài viết tin tức.
@@ -106,9 +100,6 @@ public class NewsController {
         }
     }
 
-    // ==========================================
-    // 3. ADMIN ONLY API (PHÊ DUYỆT & QUẢN TRỊ TỔNG)
-    // ==========================================
 
     /**
      * Dành cho Admin: Lấy tất cả bài viết (kể cả PENDING, REJECTED)

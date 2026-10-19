@@ -27,9 +27,6 @@ public class StaffController {
     private final StaffOrderService staffOrderService;
     private final SimpMessagingTemplate messagingTemplate;
 
-    // ==========================================
-    // I. LẤY SƠ ĐỒ BÀN & THÔNG TIN ĐƠN HÀNG
-    // ==========================================
     @GetMapping("/tables")
     public ResponseEntity<List<Tables>> getAllTables() {
         return ResponseEntity.ok(staffOrderService.getAllTables());
@@ -50,14 +47,10 @@ public class StaffController {
         return ResponseEntity.ok(staffOrderService.getOrderDetailsByTable(tableId));
     }
 
-    // ==========================================
-    // II. XỬ LÝ HÀNG LOẠT THEO LƯỢT ORDER CỦA BÀN
-    // ==========================================
     @PutMapping("/tables/{tableId}/confirm-all")
     public ResponseEntity<Map<String, String>> confirmAllNewItemsByTable(@PathVariable Long tableId) {
         staffOrderService.confirmAllNewItemsByTable(tableId);
         
-        // Báo cho cả Nhân viên lẫn Khách hàng
         sendStaffUpdate(tableId, "NEW_ORDER_SUBMITTED");
         sendCustomerUpdate(tableId, "ORDER_CONFIRMED", "Đơn hàng của bạn đã được bếp tiếp nhận!");
         
@@ -74,14 +67,10 @@ public class StaffController {
         return ResponseEntity.ok(Map.of("message", "Đã hoàn thành và phục vụ tất cả món lượt này!"));
     }
 
-    // ==========================================
-    // III. XỬ LÝ ĐƠN HÀNG VÀ THANH TOÁN BÀN
-    // ==========================================
     @PutMapping("/orders/{tableOrderId}/confirm")
     public ResponseEntity<Map<String, String>> confirmOrderItems(@PathVariable Long tableOrderId) {
         staffOrderService.confirmOrderItems(tableOrderId);
         
-        // [ĐÃ FIX] Bổ sung bắn WebSocket để màn hình Staff tự cập nhật
         sendStaffUpdate(null, "ORDER_CONFIRMED");
         
         return ResponseEntity.ok(Map.of("message", "Đã xác nhận đơn hàng!"));
@@ -91,10 +80,8 @@ public class StaffController {
     public ResponseEntity<Map<String, String>> approvePayment(@PathVariable Long tableId) {
         staffOrderService.approveCashPayment(tableId);
         
-        // [ĐÃ FIX] Bắn 1 tin chuẩn cho Staff giải phóng bàn
         sendStaffUpdate(tableId, "TABLE_CLEARED"); 
         
-        // Báo cho Khách hàng biết thanh toán đã hoàn tất -> Frontend Khách dọn giỏ/chuyển màn hình Cảm ơn
         sendCustomerUpdate(tableId, "PAYMENT_APPROVED", "Thanh toán thành công. Cảm ơn quý khách!");
 
         return ResponseEntity.ok(Map.of(
@@ -110,7 +97,6 @@ public class StaffController {
 
         staffOrderService.cancelTableOrder(tableId, reason);
         
-        // [ĐÃ FIX] Bỏ bắn đúp 2 tin
         sendStaffUpdate(tableId, "TABLE_CLEARED");
         sendCustomerUpdate(tableId, "ORDER_CANCELLED", "Đơn hàng đã bị hủy. Lý do: " + reason);
 
@@ -129,9 +115,6 @@ public class StaffController {
         return ResponseEntity.ok(Map.of("message", "Cập nhật trạng thái bàn thành công!"));
     }
 
-    // ==========================================
-    // IV. THAO TÁC MÓN LẺ
-    // ==========================================
     @PutMapping("/tables/{tableId}/order-details/{orderDetailId}/serve")
     public ResponseEntity<Map<String, String>> markItemAsServed(
             @PathVariable Long tableId,
@@ -157,7 +140,6 @@ public class StaffController {
         return ResponseEntity.ok(Map.of("message", "Đã hủy món và cập nhật lại tổng tiền!"));
     }
 
-// CHỈ ADMIN MỚI CÓ QUYỀN SỬA SỐ LƯỢNG / GHI CHÚ
     @PutMapping("/tables/{tableId}/order-details/{orderDetailId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, String>> updateOrderItem(
@@ -170,7 +152,6 @@ public class StaffController {
         return ResponseEntity.ok(Map.of("message", "Admin đã cập nhật món thành công!"));
     }
 
-    // CHỈ ADMIN MỚI CÓ QUYỀN XÓA MÓN
     @DeleteMapping("/tables/{tableId}/order-details/{orderDetailId}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Map<String, String>> deleteOrderItem(
@@ -181,11 +162,7 @@ public class StaffController {
         return ResponseEntity.ok(Map.of("message", "Admin đã xóa món khỏi đơn!"));
     }
 
-    // ==========================================
-    // HÀM HỖ TRỢ GỬI WEBSOCKET
-    // ==========================================
 
-    // 1. Phát tới Màn hình Nhân viên & Sơ đồ bàn POS
     private void sendStaffUpdate(Long tableId, String type) {
         try {
             Map<String, Object> payload = new HashMap<>();
@@ -199,7 +176,6 @@ public class StaffController {
         }
     }
 
-    // 2. Phát tới Điện thoại của Khách hàng đang ngồi tại Bàn
     private void sendCustomerUpdate(Long tableId, String type, String message) {
         try {
             Map<String, Object> payload = new HashMap<>();

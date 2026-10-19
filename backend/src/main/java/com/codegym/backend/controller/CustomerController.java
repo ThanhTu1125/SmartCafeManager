@@ -32,17 +32,12 @@ public class CustomerController {
     private final StaffOrderService staffOrderService;
     private final SimpMessagingTemplate messagingTemplate;
 
-    // ==========================================
-    // I. THÔNG TIN BÀN & GỌI PHỤC VỤ
-    // ==========================================
 
     @PostMapping("/call-service")
     public ResponseEntity<Map<String, String>> callStaff(@RequestParam Long tableId) {
         
-        // 1. Cập nhật trạng thái dịch vụ của bàn
         orderService.updateTableServiceStatus(tableId, ServiceStatus.CALL_STAFF);
 
-        // 2. Bắn tín hiệu cho Màn hình Nhân viên / Thu ngân
         messagingTemplate.convertAndSend(
                 "/topic/table-events",
                 Map.of(
@@ -53,7 +48,6 @@ public class CustomerController {
                 )
         );
 
-        // 3. Bắn tín hiệu đồng bộ cho các thiết bị cùng bàn
         messagingTemplate.convertAndSend(
                 "/topic/tables/" + tableId,
                 Map.of(
@@ -69,9 +63,6 @@ public class CustomerController {
         ));
     }
 
-    // ==========================================
-    // II. GIỎ HÀNG TẠM (ĐỒNG BỘ MULTI-DEVICE CÙNG BÀN)
-    // ==========================================
 
     @GetMapping("/cart/{tableId}")
     public ResponseEntity<CartResponseDTO> getCartOverview(@PathVariable Long tableId) {
@@ -120,9 +111,6 @@ public class CustomerController {
         return ResponseEntity.ok(Map.of("message", "Đã xóa toàn bộ món trong giỏ hàng tạm!"));
     }
 
-    // ==========================================
-    // III. BẤM GỌI MÓN (SUBMIT ORDER)
-    // ==========================================
 
     @PostMapping("/confirm-order")
     public ResponseEntity<Map<String, String>> confirmOrder(@RequestParam Long tableId) {
@@ -131,7 +119,6 @@ public class CustomerController {
         Tables table = staffOrderService.getTableInfo(tableId);
         String tableName = (table != null && table.getTableName() != null) ? table.getTableName() : "Bàn " + tableId;
 
-        // 1. Thông báo cho Nhân viên & Màn hình Bếp (Đã bổ sung message)
         messagingTemplate.convertAndSend(
                 "/topic/table-events",
                 Map.of(
@@ -143,10 +130,8 @@ public class CustomerController {
                 )
         );
 
-        // 2. Báo cho khách tại bàn cập nhật giỏ hàng tạm (về rỗng)
         notifyCartUpdate(tableId);
 
-        // 3. Báo cho khách tại bàn cập nhật danh sách món ĐÃ GỌI
         messagingTemplate.convertAndSend(
                 "/topic/tables/" + tableId,
                 Map.of(
@@ -158,15 +143,11 @@ public class CustomerController {
         return ResponseEntity.ok(Map.of("message", "Đã gửi đơn hàng thành công xuống bếp!"));
     }
 
-    // ==========================================
-    // IV. YÊU CẦU THANH TOÁN & HÓA ĐƠN
-    // ==========================================
 
     @PostMapping("/payment/cash")
     public ResponseEntity<Map<String, String>> processCashPayment(@RequestParam Long tableId) {
         paymentService.processCashPayment(tableId);
 
-        // Bắn tín hiệu ngay lập tức cho màn hình nhân viên/thu ngân
         messagingTemplate.convertAndSend(
                 "/topic/table-events",
                 Map.of(
@@ -177,7 +158,6 @@ public class CustomerController {
                 )
         );
 
-        // Báo tín hiệu cho khách hàng
         messagingTemplate.convertAndSend(
                 "/topic/tables/" + tableId,
                 Map.of(
@@ -194,9 +174,6 @@ public class CustomerController {
         return ResponseEntity.ok(paymentService.getInvoiceSummaryDTO(tableId));
     }
 
-    // ==========================================
-    // HELPER METHODS
-    // ==========================================
 
     private void notifyCartUpdate(Long tableId) {
         Map<String, Object> payload = Map.of(
@@ -207,7 +184,6 @@ public class CustomerController {
 
         messagingTemplate.convertAndSend("/topic/tables/" + tableId, payload);
         
-        // Giữ kênh giỏ hàng tạm nếu frontend có subscribe riêng
         messagingTemplate.convertAndSend("/topic/tables/" + tableId + "/cart", payload);
     }
 }

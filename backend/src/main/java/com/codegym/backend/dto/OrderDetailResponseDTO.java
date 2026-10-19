@@ -13,9 +13,9 @@ public class OrderDetailResponseDTO {
 
     private Long orderDetailId;
     private Long itemId;
-    private String itemCode;  // THÊM TRƯỜNG NÀY
+    private String itemCode;
     private String itemName;
-    private String itemImage; // GIỮ NGUYÊN TRƯỜNG CỦ CỦA BẠN
+    private String itemImage;
     private Integer quantity;
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;

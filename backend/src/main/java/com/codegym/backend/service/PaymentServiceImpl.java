@@ -75,7 +75,6 @@ public class PaymentServiceImpl implements PaymentService {
             tablesRepository.save(table);
         }
 
-        // Bắn Socket event PAYMENT_REQUESTED
         notifyTableEvents(tableId, "PAYMENT_REQUESTED", "Bàn " + tableId + " yêu cầu thanh toán (" + paymentMethod + ")");
     }
 
@@ -110,7 +109,6 @@ public class PaymentServiceImpl implements PaymentService {
             tablesRepository.save(table);
         }
 
-        // Bắn Socket event TABLE_CLEARED
         notifyTableEvents(tableId, "TABLE_CLEARED", "Bàn " + tableId + " đã hoàn tất thanh toán và trống!");
     }
 

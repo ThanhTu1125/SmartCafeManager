@@ -15,9 +15,6 @@ import java.util.List;
 @Repository
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
 
-    // ==========================================
-    // 1. CHỨC NĂNG TRUY VẤN CHI TIẾT ĐƠN HÀNG
-    // ==========================================
 
     List<OrderDetail> findByOrder(TableOrder order);
 
@@ -33,18 +30,12 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
 
     List<OrderDetail> findByOrderTableOrderIdAndStatusNot(Long orderId, StatusOrderDetail status);
 
-    // 🟢 Lấy danh sách theo nhiều trạng thái (Ví dụ: SERVED hoặc DELIVERED)
     List<OrderDetail> findByOrderTableOrderIdAndStatusIn(Long orderId, Collection<StatusOrderDetail> statuses);
 
 
-    // ==========================================
-    // 2. KIỂM TRA ĐIỀU KIỆN ĐÁNH GIÁ (FEEDBACK)
-    // ==========================================
 
-    // 🟢 Kiểm tra món có trong hóa đơn cụ thể hay không
     boolean existsByOrderTableOrderIdAndItemItemId(Long orderId, Long itemId);
 
-    // 🟢 Kiểm tra Khách hàng ĐÃ ĐĂNG NHẬP đã mua & hoàn tất thanh toán món này chưa (theo Customer ID)
     @Query("SELECT COUNT(od) > 0 FROM OrderDetail od " +
            "WHERE od.order.customer.customerId = :customerId " +
            "AND od.item.itemId = :itemId " +
@@ -55,7 +46,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
             @Param("status") StatusTableOrder status
     );
 
-    // 🟢 Kiểm tra Khách hàng ĐÃ ĐĂNG NHẬP đã mua & hoàn tất thanh toán món này chưa (theo Email trong Account)
     @Query("SELECT COUNT(od) > 0 FROM OrderDetail od " +
            "WHERE od.order.customer IS NOT NULL " +
            "AND od.order.customer.account IS NOT NULL " +
@@ -69,11 +59,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> 
     );
 
 
-    // ===========================================
-    // 3. BÁO CÁO & THỐNG KÊ (STATISTICS)
-    // ==========================================
 
-    // 🟢 Thống kê doanh thu theo từng danh mục (Linh hoạt truyền tham số Trạng thái)bh
     @Query("SELECT c.categoryId, c.categoryName, COALESCE(SUM(od.quantity * od.unitPrice), 0) " +
            "FROM OrderDetail od " +
            "JOIN od.item i " +

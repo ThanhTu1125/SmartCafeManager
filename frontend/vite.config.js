@@ -3,10 +3,7 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [
-    react(),
-    tailwindcss(),
-  ],
+  plugins: [react(), tailwindcss()],
   define: {
     global: "window",
   },
@@ -15,16 +12,16 @@ export default defineConfig({
     strictPort: true,
     proxy: {
       "/api": {
-        target: "http://localhost:8080",
+        target: "http://192.168.1.100:8080",
         changeOrigin: true,
       },
       "/ws-news": {
-        target: "http://localhost:8080",
+        target: "http://192.168.1.100:8080",
         changeOrigin: true,
         ws: true,
       },
       "/ws": {
-        target: "http://localhost:8080",
+        target: "http://192.168.1.100:8080",
         changeOrigin: true,
         ws: true,
       },

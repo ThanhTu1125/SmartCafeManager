@@ -41,14 +41,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<ErrorResponse> handleAppException(AppException ex, HttpServletRequest request) {
+        HttpStatus status = ex.getStatus() != null ? ex.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
         ErrorResponse error = ErrorResponse.builder()
                 .timestamp(new Date())
-                .status(ex.getStatus().value())
-                .error(ex.getStatus().getReasonPhrase()) // Tự động lấy tên lỗi (VD: Not Found, Conflict)
+                .status(status.value())
+                .error(status.getReasonPhrase())
                 .message(ex.getMessage())
                 .path(request.getRequestURI())
                 .build();
-        return new ResponseEntity<>(error, ex.getStatus());
+        return ResponseEntity.status(status).body(error);
     }
 
     @ExceptionHandler(RuntimeException.class)

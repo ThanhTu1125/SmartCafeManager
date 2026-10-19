@@ -12,7 +12,6 @@ public class StaffItemController {
 
     private final StaffItemService staffItemService;
 
-    // PATCH /api/v1/staff/items/1/availability?isAvailable=true
     @PatchMapping("/{itemId}/availability")
     public ResponseEntity<String> toggleAvailability(
             @PathVariable Long itemId,

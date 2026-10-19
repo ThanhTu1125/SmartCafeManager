@@ -13,7 +13,6 @@ public class TableNotificationService {
 
     public void notifyTableEvent(String type, String message, Long tableId) {
         TableEventDTO payload = new TableEventDTO(type, message, tableId);
-        // Bắn trực tiếp vào channel /topic/table-events
         messagingTemplate.convertAndSend("/topic/table-events", payload);
     }
 }

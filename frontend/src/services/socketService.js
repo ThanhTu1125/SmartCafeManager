@@ -7,13 +7,16 @@ import SockJS from "sockjs-client";
  */
 let client = null;
 
-export function connectCafeSocket({ onNews, onStaff, onTableEvents, onConnected, onError } = {}) {
+export function connectCafeSocket({
+  onNews,
+  onStaff,
+  onTableEvents,
+  onConnected,
+  onError,
+} = {}) {
   disconnectCafeSocket();
 
-  const sockUrl =
-    typeof window !== "undefined"
-      ? `${window.location.origin}/ws-news`
-      : "http://localhost:8080/ws-news";
+  const sockUrl = "http://192.168.1.100:8080/ws-news";
 
   client = new Client({
     webSocketFactory: () => new SockJS(sockUrl),
@@ -29,7 +32,9 @@ export function connectCafeSocket({ onNews, onStaff, onTableEvents, onConnected,
         client.subscribe("/topic/staff-requests", (msg) => onStaff(msg.body));
       }
       if (onTableEvents) {
-        client.subscribe("/topic/table-events", (msg) => onTableEvents(msg.body));
+        client.subscribe("/topic/table-events", (msg) =>
+          onTableEvents(msg.body),
+        );
       }
     },
     onStompError: (frame) => {

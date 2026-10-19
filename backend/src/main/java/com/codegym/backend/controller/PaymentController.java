@@ -38,7 +38,6 @@ public class PaymentController {
     @Value("${app.frontend.url:http://localhost:5173}")
     private String frontendUrl;
 
-    // --- HÓA ĐƠN & THANH TOÁN TẠI QUÁN ---
 
     @GetMapping("/invoice")
     public ResponseEntity<TableOrderInvoiceDTO> getCurrentInvoice(
@@ -58,7 +57,6 @@ public class PaymentController {
         return ResponseEntity.ok("Thanh toán thành công! Hóa đơn đã chốt và bàn đã giải phóng.");
     }
 
-    // --- INTEGRATION PAYPAL ---
 
     @PostMapping("/paypal")
     public ResponseEntity<?> createPayPalPayment(@RequestParam Long tableId) {
@@ -86,7 +84,6 @@ public class PaymentController {
         }
     }
 
-    // ✅ THANH TOÁN THÀNH CÔNG: Chuyển hướng về Frontend
     @GetMapping("/paypal/success")
     public RedirectView paymentSuccess(
             @RequestParam(value = "paymentId", required = false) String paymentId,
@@ -98,30 +95,24 @@ public class PaymentController {
             boolean isExecuted = payPalService.executePayment(actualPaymentId, payerId);
 
             if (isExecuted) {
-                // 1. Chốt đơn & Giải phóng bàn trong DB
                 paymentService.completeCheckout(tableId, PaymentMethod.PAYPAL);
 
-                // 2. Bắn tin nhắn WebSocket cho Thu ngân
                 notifyStaffCheckout(tableId, "Bàn " + tableId + " đã thanh toán PayPal thành công.");
 
-                // 3. Chuyển hướng về trang Success của Frontend
                 return new RedirectView(frontendUrl + "/payment-success?tableId=" + tableId);
             }
         } catch (Exception e) {
             log.error(" Lỗi xác thực PayPal Success cho Bàn {}: {}", tableId, e.getMessage(), e);
         }
 
-        // Chuyển hướng về trang Failed của Frontend nếu thất bại
         return new RedirectView(frontendUrl + "/payment-failed?tableId=" + tableId);
     }
 
-    // ✅ HỦY THANH TOÁN: Chuyển hướng về Frontend
     @GetMapping("/paypal/cancel")
     public RedirectView paymentCancel(@RequestParam("tableId") Long tableId) {
         return new RedirectView(frontendUrl + "/payment-cancel?tableId=" + tableId);
     }
 
-    // --- HELPER METHOD ---
 
     private void notifyStaffCheckout(Long tableId, String message) {
         Map<String, Object> payload = new HashMap<>();

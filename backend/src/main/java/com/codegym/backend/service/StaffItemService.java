@@ -18,7 +18,6 @@ public class StaffItemService {
 
     @Transactional
     public void updateItemAvailability(Long itemId, Boolean isAvailable) {
-        // Kiểm tra null để xóa sạch cảnh báo Null Safety
         Objects.requireNonNull(itemId, "itemId không được để null");
 
         Item item = itemRepository.findById(itemId)

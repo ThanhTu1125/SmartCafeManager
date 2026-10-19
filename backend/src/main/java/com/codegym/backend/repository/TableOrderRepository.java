@@ -14,11 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TableOrderRepository extends JpaRepository<TableOrder, Long> {
-// Thêm dòng này vào để sửa lỗi đỏ
     List<TableOrder> findAllByOrderByTableOrderIdDesc();
-    // ==========================================
-    // 1. CHỨC NĂNG BÀN VÀ ĐẶT MÓN (ORDERING)
-    // ==========================================
 
     Optional<TableOrder> findByTableTableIdAndStatus(Long tableId, StatusTableOrder status);
 
@@ -38,9 +34,6 @@ public interface TableOrderRepository extends JpaRepository<TableOrder, Long> {
     int updatePendingItemsToOrdered(@Param("tableOrderId") Long tableOrderId);
 
 
-    // ==========================================
-    // 2. CHỨC NĂNG XEM HÓA ĐƠN (INVOICES)
-    // ==========================================
 
     @Query("SELECT o FROM TableOrder o WHERE o.status = :status " +
            "AND (:tableId IS NULL OR o.table.tableId = :tableId) " +
@@ -49,7 +42,6 @@ public interface TableOrderRepository extends JpaRepository<TableOrder, Long> {
             @Param("tableId") Long tableId,
             @Param("status") StatusTableOrder status);
 
-    // Hỗ trợ lọc hóa đơn đa năng (chấp nhận null startDate/endDate/tableId)
     @Query("SELECT o FROM TableOrder o " +
            "LEFT JOIN FETCH o.table t " +
            "WHERE o.status = com.codegym.backend.enums.StatusTableOrder.PAID " +
@@ -63,11 +55,7 @@ public interface TableOrderRepository extends JpaRepository<TableOrder, Long> {
             @Param("endDate") LocalDateTime endDate);
 
 
-    // ==========================================
-    // 3. THỐNG KÊ DOANH THU & ĐẾM ĐƠN HÀNG (STATISTICS)
-    // ==========================================
 
-    // 3a. Tính doanh thu (Tùy chọn status)
     @Query("SELECT COALESCE(SUM(o.totalAmount), 0.0) FROM TableOrder o " +
            "WHERE o.status = :status " +
            "AND COALESCE(o.paidAt, o.createdAt) BETWEEN :startDate AND :endDate")
@@ -76,7 +64,6 @@ public interface TableOrderRepository extends JpaRepository<TableOrder, Long> {
             @Param("endDate") LocalDateTime endDate,
             @Param("status") StatusTableOrder status);
 
-    // 3b. Tính doanh thu (Mặc định PAID)
     @Query("SELECT COALESCE(SUM(o.totalAmount), 0.0) FROM TableOrder o " +
            "WHERE o.status = com.codegym.backend.enums.StatusTableOrder.PAID " +
            "AND COALESCE(o.paidAt, o.createdAt) BETWEEN :startDate AND :endDate")
@@ -84,7 +71,6 @@ public interface TableOrderRepository extends JpaRepository<TableOrder, Long> {
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate);
 
-    // 3c. Đếm số hóa đơn (Tùy chọn status)
     @Query("SELECT COUNT(o) FROM TableOrder o " +
            "WHERE o.status = :status " +
            "AND COALESCE(o.paidAt, o.createdAt) BETWEEN :startDate AND :endDate")
@@ -93,7 +79,6 @@ public interface TableOrderRepository extends JpaRepository<TableOrder, Long> {
             @Param("endDate") LocalDateTime endDate,
             @Param("status") StatusTableOrder status);
 
-    // 3d. Đếm số hóa đơn (Mặc định PAID)
     @Query("SELECT COUNT(o) FROM TableOrder o " +
            "WHERE o.status = com.codegym.backend.enums.StatusTableOrder.PAID " +
            "AND COALESCE(o.paidAt, o.createdAt) BETWEEN :startDate AND :endDate")
@@ -102,9 +87,6 @@ public interface TableOrderRepository extends JpaRepository<TableOrder, Long> {
             @Param("endDate") LocalDateTime endDate);
 
 
-    // ==========================================
-    // 4. BÁO CÁO DASHBOARD KHÁC
-    // ==========================================
 
     @Query("SELECT c.categoryName, SUM(od.quantity) " +
            "FROM OrderDetail od " +
@@ -132,11 +114,7 @@ public interface TableOrderRepository extends JpaRepository<TableOrder, Long> {
     Double getMonthlyRevenue(@Param("status") StatusTableOrder status);
 
 
-    // ==========================================
-    // 5. CHỨC NĂNG QUẢN LÝ DÀNH CHO ADMIN (ADMIN MANAGEMENT)
-    // ==========================================
 
-    // Admin lọc nâng cao: Tìm tất cả hóa đơn (bao gồm PAID, PENDING, CANCELLED...)
     @Query("SELECT DISTINCT o FROM TableOrder o " +
            "LEFT JOIN FETCH o.table t " +
            "LEFT JOIN FETCH o.customer c " +
@@ -156,7 +134,6 @@ public interface TableOrderRepository extends JpaRepository<TableOrder, Long> {
             @Param("endDate") LocalDateTime endDate,
             @Param("keyword") String keyword);
 
-    // Lấy chi tiết đơn hàng đầy đủ kèm Table, Customer, Employee để Admin Sửa/Xem
     @Query("SELECT o FROM TableOrder o " +
            "LEFT JOIN FETCH o.table " +
            "LEFT JOIN FETCH o.customer " +

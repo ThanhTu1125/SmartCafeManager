@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import java.io.IOException; // 🟢 THÊM IMPORT NÀY
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -34,15 +34,12 @@ public class FeedbackServiceImpl implements FeedbackService {
     private final OrderDetailRepository orderDetailRepository;
     private final CloudinaryService cloudinaryService;
 
-    // 1. TẠO FEEDBACK VÀ TRẢ VỀ DTO
     @Override
     @Transactional
     public FeedbackResponseDTO createFeedback(FeedbackRequestDTO dto) {
-        // Kiểm tra itemId
         Item item = itemRepository.findById(dto.getItemId())
                 .orElseThrow(() -> new RuntimeException("Không tìm thấy món ăn để đánh giá!"));
 
-        // Chỉ kiểm tra món ăn có trong đơn hay không
         if (dto.getOrderId() != null) {
             boolean isItemInOrder = orderDetailRepository.existsByOrderTableOrderIdAndItemItemId(
                     dto.getOrderId(),
@@ -53,7 +50,6 @@ public class FeedbackServiceImpl implements FeedbackService {
             }
         }
 
-        // 2. XỬ LÝ UPLOAD ẢNH LÊN CLOUDINARY (ĐÃ BỌC TRY-CATCH)ssdas
         String finalImageUrl = dto.getImageUrl();
         if (dto.getImageFile() != null && !dto.getImageFile().isEmpty()) {
             try {
@@ -63,7 +59,6 @@ public class FeedbackServiceImpl implements FeedbackService {
             }
         }
 
-        // Kiểm tra đăng nhập để lấy thông tin Customer
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Customer customer = null;
         String email = dto.getEmail();
@@ -86,7 +81,6 @@ public class FeedbackServiceImpl implements FeedbackService {
             senderName = "Khách hàng";
         }
 
-        // Lưu Feedback với finalImageUrl đã xử lý
         Feedback feedback = Feedback.builder()
                 .content(dto.getContent())
                 .rating(dto.getRating())
@@ -136,7 +130,6 @@ public class FeedbackServiceImpl implements FeedbackService {
         feedbackRepository.save(feedback);
     }
 
-    // --- HELPER METHOD ---
     private FeedbackResponseDTO mapToResponseDTO(Feedback feedback) {
         Date sentAtDate = null;
         if (feedback.getSentAt() != null) {

@@ -140,7 +140,7 @@ function FeedbackManager() {
   //Thực hiện kết nối WebSocket để nhận thông báo từ server khi có sự kiện mới liên quan đến bàn
   useEffect(() => {
     const client = new Client({
-      brokerURL: "ws://localhost:8080/ws", // Đổi thành IP backend thực tế
+      brokerURL: "ws://192.168.1.100:8080/ws", // Đổi thành IP backend thực tế
       reconnectDelay: 5000,
       onConnect: () => {
         console.log(`[WebSocket] Đã kết nối.`);

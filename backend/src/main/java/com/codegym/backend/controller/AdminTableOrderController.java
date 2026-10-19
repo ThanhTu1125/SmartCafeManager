@@ -16,13 +16,11 @@ public class AdminTableOrderController {
 
     private final AdminTableOrderService adminTableOrderService;
 
-    // Lấy tất cả hóa đơn (mới nhất lên đầu)
     @GetMapping
     public ResponseEntity<List<TableOrderResponseDTO>> getAllOrders() {
         return ResponseEntity.ok(adminTableOrderService.getAllOrders());
     }
 
-    // Cập nhật thông tin hóa đơn
     @PutMapping("/{orderId}")
     public ResponseEntity<TableOrderResponseDTO> updateOrder(
             @PathVariable Long orderId,
@@ -30,7 +28,6 @@ public class AdminTableOrderController {
         return ResponseEntity.ok(adminTableOrderService.updateOrder(orderId, dto));
     }
 
-    // Xóa mềm / Hủy hóa đơn
     @DeleteMapping("/{orderId}")
     public ResponseEntity<Void> softDeleteOrder(
             @PathVariable Long orderId,

@@ -37,6 +37,6 @@ public class InvoiceDetailResponseDTO {
         private Integer quantity;
         private Double price;
         private Double totalPrice;
-        private Boolean hasFeedback; // Phục vụ luồng đánh giá món của Khách hàng
+        private Boolean hasFeedback;
     }
 }

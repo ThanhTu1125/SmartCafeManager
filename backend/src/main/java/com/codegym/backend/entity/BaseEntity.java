@@ -1,6 +1,6 @@
 package com.codegym.backend.entity;
 
-import java.util.Date; // TRẢ VỀ java.util.Date
+import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.Column;

@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/api/v1/admin/statistics")
 @CrossOrigin("*")
 @RequiredArgsConstructor
-@PreAuthorize("hasAnyRole('ADMIN', 'STAFF')") // Cho phép cả ADMIN và STAFF xem danh sách hóa đơn
+@PreAuthorize("hasAnyRole('ADMIN', 'STAFF')")
 public class StatisticController {
 
     private final StatisticService statisticService;
@@ -36,12 +36,10 @@ public class StatisticController {
             @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
-        // Nếu có truyền startDate hoặc endDate, ưu tiên lọc theo khoảng thời gian
         if (startDate != null || endDate != null) {
             return ResponseEntity.ok(statisticService.getInvoicesByFilter(tableId, startDate, endDate));
         }
 
-        // Mặc định lọc theo type / date lẻ
         return ResponseEntity.ok(statisticService.getInvoices(tableId, type, date));
     }
 

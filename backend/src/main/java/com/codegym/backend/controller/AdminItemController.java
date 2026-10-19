@@ -34,25 +34,21 @@ public class AdminItemController {
 
     private final AdminItemService adminItemService;
 
-    // 1. LẤY TOÀN BỘ DANH SÁCH MÓN ĂN
     @GetMapping
     public ResponseEntity<List<ItemResponse>> getAllItems() {
         return ResponseEntity.ok(adminItemService.getAllItems());
     }
 
-    // 2. LẤY DANH SÁCH MÓN ĂN ĐÃ XÓA MỀM (Ẩn / Ngưng phục vụ)
     @GetMapping("/deleted")
     public ResponseEntity<List<ItemResponse>> getDeletedItems() {
         return ResponseEntity.ok(adminItemService.getDeletedItems());
     }
 
-    // 3. LẤY CHI TIẾT MỘT MÓN ĂN THEO ID
     @GetMapping("/{id}")
     public ResponseEntity<ItemResponse> getItemById(@PathVariable Long id) {
         return ResponseEntity.ok(adminItemService.getItemById(id));
     }
 
-    // 4. THÊM MỚI MÓN ĂN
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ItemResponse> createItem(
             @RequestParam("itemCode") String itemCode,
@@ -68,7 +64,6 @@ public class AdminItemController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newItem);
     }
 
-    // 5. CẬP NHẬT MÓN ĂN
     @PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<ItemResponse> updateItem(
             @PathVariable Long id,
@@ -86,14 +81,12 @@ public class AdminItemController {
         return ResponseEntity.ok(updatedItem);
     }
 
-    // 6. XÓA MÓN ĂN (Ẩn món - Xóa mềm)
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> deleteItem(@PathVariable Long id) {
         adminItemService.deleteItem(id);
         return ResponseEntity.ok(Map.of("message", "Đã ngưng phục vụ món ăn thành công!"));
     }
 
-    // 7. KHÔI PHÚC MÓN ĂN ĐÃ XÓA MỀM
     @PutMapping("/{id}/restore")
     public ResponseEntity<Map<String, String>> restoreItem(@PathVariable Long id) {
         adminItemService.restoreItem(id);

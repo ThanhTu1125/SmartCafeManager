@@ -16,7 +16,6 @@ public class TableOrderResponseDTO {
     private String cancelReason;
     private Boolean isDeleted;
 
-    // Các mốc thời gian & Audit log
     private LocalDateTime createdAt;
     private String createdBy;
     private LocalDateTime updatedAt;
@@ -25,7 +24,6 @@ public class TableOrderResponseDTO {
     private LocalDateTime closeAt;
     private LocalDateTime paidAt;
 
-    // Phẳng hóa thông tin Bàn, Khách hàng, Nhân viên
     private Long tableId;
     private String tableName;
     private Long customerId;
@@ -33,6 +31,5 @@ public class TableOrderResponseDTO {
     private Long employeeId;
     private String employeeName;
 
-    // Danh sách món trong đơn
     private List<OrderDetailResponseDTO> items;
 }

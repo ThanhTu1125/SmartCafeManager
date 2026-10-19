@@ -17,7 +17,7 @@ public class CustomerResponse {
     private String gender;
     private String phoneNumber;
     private String address;
-    private Integer loyaltyPoints; // Điểm tích lũy
+    private Integer loyaltyPoints;
     private String imageUrl;
     private String status;
 }

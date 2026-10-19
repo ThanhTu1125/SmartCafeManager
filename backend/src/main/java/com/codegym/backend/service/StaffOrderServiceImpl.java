@@ -44,9 +44,6 @@ public class StaffOrderServiceImpl implements StaffOrderService {
             StatusTableOrder.OPEN,
             StatusTableOrder.WAITING_PAYMENT);
 
-    // ==========================================
-    // I. SƠ ĐỒ BÀN & CHI TIẾT PANELS
-    // ==========================================
 
     @Override
     @Transactional(readOnly = true)
@@ -242,9 +239,6 @@ public class StaffOrderServiceImpl implements StaffOrderService {
         notifyStaffAndKitchen(tableId, "ORDER_CONFIRMED", "Bàn " + tableId + " đã được xác nhận đơn lượt mới.");
     }
 
-    // ==========================================
-    // IV. THAO TÁC CHI TIẾT TỪNG MÓN LẺ
-    // ==========================================
 
     @Override
     @Transactional
@@ -332,11 +326,9 @@ public class StaffOrderServiceImpl implements StaffOrderService {
         Long tableId = order.getTable().getTableId();
         String itemName = detail.getItem() != null ? detail.getItem().getItemName() : "Món ăn";
 
-        // 1. Thông báo cho máy của khách hàng
         notifyCustomerTable(tableId, "ITEM_UPDATED",
                 "Món '" + itemName + "' đã được cập nhật số lượng thành " + newQuantity);
 
-        // 2. Thông báo cho Bếp và các màn hình Nhân viên khác đồng bộ
         notifyStaffAndKitchen(tableId, "ITEM_UPDATED",
                 "Bàn " + tableId + " vừa cập nhật món '" + itemName + "' (" + newQuantity + ")");
     }
@@ -363,9 +355,6 @@ public class StaffOrderServiceImpl implements StaffOrderService {
         notifyStaffAndKitchen(tableId, "ITEM_DELETED", "Bàn " + tableId + " vừa bỏ món '" + itemName + "' khỏi đơn.");
     }
 
-    // ==========================================
-    // HELPER METHODS
-    // ==========================================
 
     private void recalculateOrderTotal(TableOrder order) {
         List<OrderDetail> details = orderDetailRepository.findByOrderTableOrderId(order.getTableOrderId());

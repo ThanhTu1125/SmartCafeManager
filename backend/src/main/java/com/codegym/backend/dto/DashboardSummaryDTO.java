@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class DashboardSummaryDTO {
-    private Double todayRevenue;     // Tổng doanh thu hôm nay
-    private Long todayOrderCount;    // Tổng hóa đơn trong ngày
-    private Double monthlyRevenue;   // Doanh thu tháng này
+    private Double todayRevenue;
+    private Long todayOrderCount;
+    private Double monthlyRevenue;
 }

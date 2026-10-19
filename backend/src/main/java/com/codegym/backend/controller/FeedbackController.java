@@ -24,7 +24,7 @@ import java.util.Map;
 public class FeedbackController {
 
     private final FeedbackService feedbackService;
-    private final SimpMessagingTemplate messagingTemplate; // 🟢 Bổ sung WebSocket Template
+    private final SimpMessagingTemplate messagingTemplate;
 
     /**
      * Khách hàng gửi đánh giá mới
@@ -41,7 +41,6 @@ public class FeedbackController {
             @RequestPart(value = "imageFile", required = false) MultipartFile imageFile,
             Authentication authentication
     ) {
-        // Gom dữ liệu vào DTO
         FeedbackRequestDTO dto = FeedbackRequestDTO.builder()
                 .content(content)
                 .rating(rating)
@@ -54,7 +53,6 @@ public class FeedbackController {
 
         String finalEmail;
 
-        // Xử lý Email người gửi
         if (authentication != null && authentication.isAuthenticated() 
                 && !"anonymousUser".equals(authentication.getPrincipal())) {
             finalEmail = (dto.getEmail() != null && !dto.getEmail().trim().isEmpty()) 
@@ -92,9 +90,6 @@ public class FeedbackController {
         return ResponseEntity.ok(Map.of("message", "Đã xóa đánh giá thành công!"));
     }
 
-    // ==========================================
-    // HELPER WEBSOCKET
-    // ==========================================
 
     private void notifyNewFeedback(FeedbackResponseDTO feedback) {
         try {
@@ -103,10 +98,8 @@ public class FeedbackController {
             payload.put("message", "Vừa có đánh giá " + feedback.getRating() + "⭐ mới!");
             payload.put("data", feedback);
 
-            // 1. Broadcast channel chung cho cả trang Khách & Nhân viên cùng nghe
             messagingTemplate.convertAndSend("/topic/feedbacks", payload);
 
-            // 2. Broadcast channel theo món ăn (nếu Frontend cần lắng nghe trực tiếp trang chi tiết món)
             if (feedback.getItemId() != null) {
                 messagingTemplate.convertAndSend("/topic/item/" + feedback.getItemId() + "/feedbacks", payload);
             }

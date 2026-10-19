@@ -1,5 +1,11 @@
-import React, { useCallback, useEffect, useMemo, useState, useRef } from "react";
-import { Client } from '@stomp/stompjs';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  useRef,
+} from "react";
+import { Client } from "@stomp/stompjs";
 import { ToastService } from "../../services/toastService";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,7 +32,7 @@ import {
   removeItem,
   payWithCash,
   sentFeedback,
-  sendAIPrompt
+  sendAIPrompt,
 } from "../../services/apiService";
 import AiBubble from "../../components/ai-buble";
 import aiContext from "../../constants/context.txt?raw";
@@ -126,15 +132,16 @@ function ClientMenu() {
   const loadMenu = useCallback(async () => {
     try {
       const res = await getAllItems();
-      const items = Array.isArray(res.data)
-        ? res.data.map(normalizeItem)
-        : [];
+      const items = Array.isArray(res.data) ? res.data.map(normalizeItem) : [];
       setMenuItems(items);
       if (items.length > 0) setCategory(items[0].category);
     } catch (err) {
       setMenuItems(FALLBACK_MENU);
       setCategory(FALLBACK_MENU[0].category);
-      notify(getApiErrorMessage(err, "Không tải được menu từ máy chủ."), "error");
+      notify(
+        getApiErrorMessage(err, "Không tải được menu từ máy chủ."),
+        "error",
+      );
     }
   }, []);
 
@@ -194,7 +201,8 @@ function ClientMenu() {
 
   const total = billTotal;
   const pendingCount = cartRows.reduce((sum, r) => sum + (r.qty || 1), 0);
-  const totalItemCount = pendingCount + history.reduce((sum, r) => sum + (r.quantity || 1), 0);
+  const totalItemCount =
+    pendingCount + history.reduce((sum, r) => sum + (r.quantity || 1), 0);
 
   const historyRows = history.map((h) => ({
     orderDetailId: h.orderDetailId,
@@ -262,7 +270,10 @@ function ClientMenu() {
         await callService(tableId, "REQUESTING_BILL");
         await loadCart();
       } catch (err) {
-        notify(getApiErrorMessage(err, "Thanh toán tiền mặt thất bại."), "error");
+        notify(
+          getApiErrorMessage(err, "Thanh toán tiền mặt thất bại."),
+          "error",
+        );
       } finally {
         setCheckoutOpen(false);
         window.scrollTo(0, 0);
@@ -277,7 +288,10 @@ function ClientMenu() {
         const res = await getPaymentQRCode(tableId);
         setPaypalData(res.data);
       } catch (err) {
-        notify(getApiErrorMessage(err, "Không tạo được mã QR thanh toán."), "error");
+        notify(
+          getApiErrorMessage(err, "Không tạo được mã QR thanh toán."),
+          "error",
+        );
       } finally {
         setPaypalLoading(false);
       }
@@ -335,7 +349,7 @@ function ClientMenu() {
         data.hoten,
         data.email,
         data.image,
-        data.itemId
+        data.itemId,
       );
       setLoading(true);
       notify("Cảm ơn phản hồi của bạn!", "success");
@@ -363,7 +377,7 @@ function ClientMenu() {
     if (!tableId) return;
 
     const client = new Client({
-      brokerURL: 'ws://localhost:8080/ws',
+      brokerURL: "ws://192.168.1.100:8080/ws",
       reconnectDelay: 5000,
       onConnect: () => {
         client.subscribe(`/topic/table/${tableId}`, (message) => {
@@ -374,7 +388,7 @@ function ClientMenu() {
         });
       },
       onStompError: (frame) => {
-        console.error('[WebSocket] Lỗi STOMP: ', frame.headers['message']);
+        console.error("[WebSocket] Lỗi STOMP: ", frame.headers["message"]);
       },
     });
 
@@ -409,7 +423,9 @@ function ClientMenu() {
       <div className="flex items-center justify-between pb-3 border-b border-amber-900/10">
         <div className="flex items-center gap-2">
           <span className="text-xl">🧾</span>
-          <h3 className="text-base font-bold text-[#2E1F14]">Hóa đơn Bàn {tableId}</h3>
+          <h3 className="text-base font-bold text-[#2E1F14]">
+            Hóa đơn Bàn {tableId}
+          </h3>
         </div>
         <button
           onClick={handleGoiNhanVien}
@@ -441,7 +457,8 @@ function ClientMenu() {
                       {r.name}
                     </div>
                     <div className="text-[11px] text-gray-500 mt-0.5">
-                      {fmt(r.price)} <span className="text-[#8D6E63] font-bold">x{r.qty}</span>
+                      {fmt(r.price)}{" "}
+                      <span className="text-[#8D6E63] font-bold">x{r.qty}</span>
                     </div>
                   </div>
                   <div className="text-right">
@@ -493,7 +510,9 @@ function ClientMenu() {
 
                   <div className="flex items-center gap-1 bg-[#FAF4EC] p-1 rounded-lg border border-amber-900/10">
                     <button
-                      onClick={() => handleChangeQty(r.itemId, r.qty, r.note, -1)}
+                      onClick={() =>
+                        handleChangeQty(r.itemId, r.qty, r.note, -1)
+                      }
                       disabled={loading}
                       className="w-5 h-5 rounded bg-white text-xs font-bold text-[#3E2723] shadow-xs flex items-center justify-center hover:bg-gray-50 cursor-pointer"
                     >
@@ -503,7 +522,9 @@ function ClientMenu() {
                       {r.qty}
                     </span>
                     <button
-                      onClick={() => handleChangeQty(r.itemId, r.qty, r.note, 1)}
+                      onClick={() =>
+                        handleChangeQty(r.itemId, r.qty, r.note, 1)
+                      }
                       disabled={loading}
                       className="w-5 h-5 rounded bg-[#3E2723] text-white text-xs font-bold shadow-xs flex items-center justify-center hover:bg-[#5C4D3F] cursor-pointer"
                     >
@@ -577,7 +598,11 @@ function ClientMenu() {
         <div className="max-w-6xl mx-auto flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <MenuButton />
-            <Link to={getHomePath()} className="flex items-center gap-2 no-underline text-inherit" title="Trang chủ">
+            <Link
+              to={getHomePath()}
+              className="flex items-center gap-2 no-underline text-inherit"
+              title="Trang chủ"
+            >
               <Logo className="h-9 w-9" />
               <div className="text-lg font-['Inter'] leading-none">
                 <span className="font-bold text-[#000]">NEO</span>
@@ -614,7 +639,9 @@ function ClientMenu() {
             {/* Thanh tìm kiếm & lọc danh mục */}
             <div className="bg-white p-4 rounded-2xl border border-amber-900/10 shadow-xs mb-4">
               <div className="relative mb-3">
-                <span className="absolute left-3.5 top-2.5 text-gray-400 text-sm">🔍</span>
+                <span className="absolute left-3.5 top-2.5 text-gray-400 text-sm">
+                  🔍
+                </span>
                 <input
                   type="text"
                   placeholder="Tìm món đồ uống yêu thích..."
@@ -742,8 +769,12 @@ function ClientMenu() {
               )}
             </div>
             <div>
-              <div className="text-[11px] text-gray-500 font-medium leading-none">Tổng hóa đơn</div>
-              <div className="text-sm font-extrabold text-[#3E2723]">{fmt(total)}</div>
+              <div className="text-[11px] text-gray-500 font-medium leading-none">
+                Tổng hóa đơn
+              </div>
+              <div className="text-sm font-extrabold text-[#3E2723]">
+                {fmt(total)}
+              </div>
             </div>
           </div>
 
@@ -760,14 +791,13 @@ function ClientMenu() {
       {/* 4. MODAL / BOTTOM SHEET GIỎ HÀNG CHO SMARTPHONE */}
       {mobileCartOpen && (
         <div className="lg:hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex flex-col justify-end">
-          <div
-            className="flex-1"
-            onClick={() => setMobileCartOpen(false)}
-          />
+          <div className="flex-1" onClick={() => setMobileCartOpen(false)} />
           <div className="bg-white rounded-t-3xl p-5 max-h-[85vh] flex flex-col shadow-2xl animate-in slide-in-from-bottom duration-300">
             <div className="w-12 h-1.5 bg-gray-300 rounded-full mx-auto mb-3" />
             <div className="flex justify-between items-center mb-2">
-              <span className="text-xs font-bold text-gray-500">Chi tiết bàn {tableId}</span>
+              <span className="text-xs font-bold text-gray-500">
+                Chi tiết bàn {tableId}
+              </span>
               <button
                 onClick={() => setMobileCartOpen(false)}
                 className="w-7 h-7 rounded-full bg-gray-100 text-gray-600 font-bold text-xs flex items-center justify-center hover:bg-gray-200"
@@ -811,4 +841,4 @@ function ClientMenu() {
   );
 }
 
-export default ClientMenu;
+export default ClientMenu;

@@ -27,14 +27,12 @@ public class AdminCustomerController {
 
     private final CustomerService customerService;
 
-    // Lấy danh sách khách hàng
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> getAllCustomers() {
         return ResponseEntity.ok(customerService.getAllCustomers());
     }
 
-    // Admin tạo tài khoản khách hàng (nếu cần)
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> createCustomer(
@@ -47,7 +45,6 @@ public class AdminCustomerController {
         }
     }
 
-    // Cập nhật thông tin khách hàng
     @PostMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateCustomer(
@@ -61,7 +58,6 @@ public class AdminCustomerController {
         }
     }
 
-    // Xóa mềm / Khóa tài khoản khách hàng
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteCustomer(@PathVariable Long id) {

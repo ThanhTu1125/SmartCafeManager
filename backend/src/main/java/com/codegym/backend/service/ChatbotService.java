@@ -69,7 +69,6 @@ public class ChatbotService {
                     JsonNode messageNode = choices.get(0).get("message");
                     if (messageNode != null && messageNode.has("content")) {
                         
-                        // XỬ LÝ CẮT BỎ THẺ <THINK> Ở ĐÂY
                         String rawReply = messageNode.get("content").asText();
                         if (rawReply.contains("</think>")) {
                             rawReply = rawReply.substring(rawReply.indexOf("</think>") + 8).trim();

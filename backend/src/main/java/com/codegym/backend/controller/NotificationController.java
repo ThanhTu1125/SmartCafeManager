@@ -57,8 +57,6 @@ public class NotificationController {
         return ResponseEntity.ok("Đã gửi thông báo thành công!");
     }
 
-    // --- Định nghĩa DTO trực tiếp tại đây để Swagger UI hiển thị form nhập dữ liệu
-    // ---
     @Data
     public static class NotificationDto {
         private String tableName;

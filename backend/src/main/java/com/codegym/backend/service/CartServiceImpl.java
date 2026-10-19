@@ -211,7 +211,6 @@ public class CartServiceImpl implements CartService {
         tablesRepository.save(table);
     }
 
-    // --- PRIVATE HELPER METHODS ---
 
     /**
      * Kiểm tra xem bàn có đang trong quá trình yêu cầu thanh toán hay không.

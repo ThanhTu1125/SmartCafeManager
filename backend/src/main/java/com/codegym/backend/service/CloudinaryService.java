@@ -39,7 +39,6 @@ public class CloudinaryService {
 
             cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
 
-            // Biến log lúc này tự động có sẵn nhờ @Slf4j
             log.info("Đã xóa ảnh cũ trên Cloudinary: {}", publicId);
         } catch (Exception e) {
             log.error("Lỗi khi xóa ảnh trên Cloudinary: ", e);

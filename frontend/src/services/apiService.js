@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // Đường dẫn cơ sở của Backend Spring Boot
-const API_BASE_URL = "/api/v1";
+const API_BASE_URL = "http://192.168.1.100:8080/api/v1";
 
 axios.interceptors.request.use(
   (config) => {

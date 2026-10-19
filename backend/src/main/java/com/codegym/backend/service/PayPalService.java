@@ -32,7 +32,6 @@ public class PayPalService {
     public String createPayPalOrder(BigDecimal totalAmountVnd, String returnUrl, String cancelUrl) 
             throws PayPalRESTException {
         
-        // Quy đổi VND sang USD và làm tròn 2 chữ số thập phân asdasdas
         BigDecimal totalAmountUsd = totalAmountVnd.divide(exchangeRate, 2, RoundingMode.HALF_UP);
 
         Amount amount = new Amount();
